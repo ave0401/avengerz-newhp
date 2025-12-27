@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Components Import
+import CeoMessage from '../components//ui/CeoMessage.astro';
+import CompanyProfileCard from '../components/ui/CompanyProfileCard.astro';
+import LocationCard from '../components/ui/LocationCard.astro';
+import SocialCard from '../components/ui/SocialCard.astro';
+---
+
+<Layout title="Company | AVENGERZ">
+  <main class="pt-32 pb-32">
+
+    <section class="max-w-4xl mx-auto px-6 mb-24 reveal active text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-gray-100 shadow-sm mb-8 backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span>
+        <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase font-heading">
+          About Us
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 font-heading tracking-tight">
+        COMPANY
+      </h1>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 mb-24 reveal">
+      <CeoMessage />
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 reveal">
+      <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8 ml-2 font-heading">
+        Information
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 auto-rows-[minmax(180px,auto)]">
+
+        <CompanyProfileCard className="col-span-1 md:col-span-6 lg:col-span-4" />
+
+        <LocationCard className="col-span-1 md:col-span-6 lg:col-span-8" />
+
+        <SocialCard
+          href="https://x.com/"
+          label="X / Twitter"
+          hoverColorClass="hover:bg-black!"
+          className="col-span-1 md:col-span-2 lg:col-span-4"
+        >
+          <svg slot="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16H20L8.267 4z"></path><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"></path></svg>
+        </SocialCard>
+
+        <SocialCard
+          href="https://instagram.com/"
+          label="Instagram"
+          hoverColorClass="hover:bg-[#D62976]!"
+          className="col-span-1 md:col-span-2 lg:col-span-4"
+        >
+           <svg slot="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </SocialCard>
+
+        <SocialCard
+          href="https://note.com/"
+          label="note"
+          hoverColorClass="hover:bg-[#41C9B4]!"
+          className="col-span-1 md:col-span-2 lg:col-span-4"
+        >
+          <svg slot="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
+        </SocialCard>
+
+      </div>
+    </section>
+  </main>
+</Layout>

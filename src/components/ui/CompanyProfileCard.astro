@@ -1,0 +1,26 @@
+---
+interface Props {
+  className?: string;
+}
+const { className } = Astro.props;
+---
+
+<div class:list={["bento-card p-8 flex flex-col justify-center", className]}>
+  <h3 class="text-lg font-bold text-gray-900 mb-6 font-heading">
+    Profile
+  </h3>
+  <ul class="text-sm space-y-4">
+    <li class="flex justify-between border-b border-gray-100 pb-2">
+      <span class="text-gray-400 text-xs font-bold uppercase tracking-wider">Name</span>
+      <span class="font-medium text-gray-900">株式会社アベンジャーズ</span>
+    </li>
+    <li class="flex justify-between border-b border-gray-100 pb-2">
+      <span class="text-gray-400 text-xs font-bold uppercase tracking-wider">Est.</span>
+      <span class="font-medium text-gray-900">2022年7月</span>
+    </li>
+    <li class="flex justify-between border-b border-gray-100 pb-2">
+      <span class="text-gray-400 text-xs font-bold uppercase tracking-wider">Capital</span>
+      <span class="font-medium text-gray-900">1,000,000円</span>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  type: "Full-time" | "Part-time";
+  location: "Miyazaki" | "Okinawa";
+  salary: string;
+  tags: readonly string[];
+  href: string;
+}
+
+const { title, type, location, salary, tags, href } = Astro.props;
+
+// 色の定義
+const typeColor = type === "Full-time" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-purple-50 text-purple-700 border-purple-200";
+const locationColor = location === "Miyazaki" ? "bg-orange-50 text-orange-700 border-orange-200" : "bg-teal-50 text-teal-700 border-teal-200";
+---
+
+<a
+  href={href}
+  class="bento-card p-6 md:p-8 flex flex-col md:flex-row gap-6 group hover:border-gray-300 transition-all duration-300 relative overflow-hidden"
+>
+  <div class="absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+
+  <div class="flex-1">
+    <div class="flex flex-wrap items-center gap-3 mb-3">
+      <span class={`px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${locationColor}`}>
+        {location}
+      </span>
+      <span class={`px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${typeColor}`}>
+        {type}
+      </span>
+    </div>
+
+    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+      {title}
+    </h3>
+
+    <p class="text-sm text-gray-500 font-medium mb-4 flex items-center gap-2">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400">
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+      {salary}
+    </p>
+
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span class="text-xs text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded-md">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end md:pl-4 md:border-l border-gray-100">
+    <span class="flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:translate-x-1 transition-transform font-heading">
+      View Details
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </span>
+  </div>
+</a>

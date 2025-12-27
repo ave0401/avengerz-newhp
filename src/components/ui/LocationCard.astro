@@ -1,0 +1,40 @@
+---
+interface Props {
+  className?: string;
+}
+const { className } = Astro.props;
+---
+
+<section class:list={["bento-card p-8 flex flex-col justify-center relative group min-h-55 overflow-hidden", className]}>
+  <div class="absolute inset-0 map-pattern z-0 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative z-10 flex flex-col md:flex-row items-start md:items-end h-full gap-8 md:gap-16">
+
+    <address class="not-italic">
+      <span class="text-xs text-gray-400 uppercase tracking-widest mb-2 block font-heading">
+        Head Office
+      </span>
+      <p class="text-lg font-bold text-gray-900 leading-relaxed">
+        〒904-0495
+        <br />沖縄県国頭郡恩納村谷茶1919-1<br />OISTインキュベーターセンター
+      </p>
+    </address>
+
+    <address class="not-italic">
+      <span class="text-xs text-gray-400 uppercase tracking-widest mb-2 block font-heading">
+        Miyazaki
+      </span>
+      <p class="text-lg font-bold text-gray-900 leading-relaxed">
+        〒885-0074<br /> 宮崎県都城市立野町7-4-101
+      </p>
+    </address>
+
+  </div>
+
+  <div class="absolute top-8 right-8 text-gray-300 pointer-events-none">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+      <circle cx="12" cy="10" r="3"></circle>
+    </svg>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+---
+// src/pages/news/[blogId].astro
+import Layout from '../../layouts/Layout.astro';
+import { getNews, getNewsDetail } from "../../lib/microcms";
+// 1. 静的パスの生成 (SSG: ビルド時に全記事分のHTMLを作っておく)
+export async function getStaticPaths() {
+  const response = await getNews({ fields: ["id"] });
+  return response.contents.map((content: { id: any; }) => ({
+    params: {
+      blogId: content.id,
+    },
+  }));
+}
+
+// 2. 記事データの取得
+const { blogId } = Astro.params;
+const news = await getNewsDetail(blogId as string);
+
+// 日付フォーマット
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+};
+
+// カテゴリスタイル (一覧と同じ定義)
+const categoryStyles: Record<string, string> = {
+  Release: "bg-blue-50 text-blue-600 border-blue-100",
+  SaaS: "bg-gray-100 text-gray-500 border-gray-200",
+  Info: "bg-gray-100 text-gray-600 border-gray-200",
+  Office: "bg-green-50 text-green-600 border-green-100",
+  Media: "bg-purple-50 text-purple-600 border-purple-100",
+};
+---
+
+<Layout title={`${news.title} | News | AVENGERZ`} description={news.summary}>
+  <main class="pt-32 pb-32">
+    <article class="max-w-3xl mx-auto px-6 reveal active">
+
+      {/* Header Area */}
+      <div class="mb-10 text-center">
+        <div class="flex items-center justify-center gap-4 mb-6">
+          <span class="text-sm font-bold text-gray-400 font-heading tracking-wider">
+            {formatDate(news.publishedAt)}
+          </span>
+          <span class={`px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wide font-heading border ${categoryStyles[news.category] || "bg-gray-100 text-gray-600 border-gray-200"}`}>
+            {news.category}
+          </span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-black text-gray-900 leading-tight font-heading tracking-tight mb-8">
+          {news.title}
+        </h1>
+
+        {news.thumbnail && (
+          <div class="w-full aspect-video bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 shadow-sm mb-10">
+            <img
+              src={news.thumbnail.url}
+              alt={news.title}
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Body Area (MicroCMS Rich Text) */}
+      <div class="prose prose-gray prose-lg max-w-none prose-headings:font-heading prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-500 bg-white p-8 md:p-12 rounded-3xl border border-gray-100 shadow-sm">
+        <div set:html={news.content} />
+      </div>
+
+      {/* Footer Area */}
+      <div class="mt-16 text-center border-t border-gray-200 pt-16">
+        <a
+          href="/news"
+          class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-white border border-gray-200 text-sm font-bold text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm group"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="group-hover:-translate-x-1 transition-transform"
+          >
+            <path d="M19 12H5"/>
+            <path d="M12 19l-7-7 7-7"/>
+          </svg>
+          Back to News
+        </a>
+      </div>
+
+    </article>
+  </main>
+</Layout>

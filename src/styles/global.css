@@ -1,0 +1,83 @@
+/* src/styles/global.css */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Inter", "Noto Sans JP", sans-serif;
+  --font-heading: "Outfit", sans-serif;
+}
+
+@layer utilities {
+  .text-justify-jp {
+    text-align: justify;
+    text-justify: inter-ideograph;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+    border-radius: 20px;
+  }
+
+  /* カードリンクの中身をクリック判定から除外（親のaタグだけ反応させる） */
+  a.bento-card > * {
+    pointer-events: none;
+  }
+  .clickable-in-card {
+    pointer-events: auto;
+  }
+}
+
+/* === Custom Animations & Classes === */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.8s;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bento Card Logic */
+/* isolate を追加して、重なり順の干渉を物理的に遮断 */
+.bento-card {
+  @apply bg-white border border-black/5 rounded-3xl relative transition-all duration-300 shadow-sm overflow-hidden isolate;
+}
+/* ホバー時は少し手前に出す */
+.bento-card:hover {
+  @apply border-black/10 shadow-lg z-30;
+}
+
+/* Sticker Logic */
+.sticker {
+  @apply absolute z-20 shadow-md transition-transform duration-300 font-heading font-extrabold tracking-wide uppercase border-2 border-white pointer-events-none;
+}
+.bento-card:hover .sticker {
+  transform: scale(1.1) rotate(12deg);
+}
+
+/* Sticker Colors */
+.sticker-service {
+  @apply -top-3 -right-3 rotate-6 bg-yellow-400 text-black px-4 py-2 rounded-full text-xs;
+}
+.sticker-recruit {
+  @apply -bottom-3 right-6 -rotate-6 bg-pink-400 text-white px-3 py-1.5 rounded-full text-[10px];
+}
+.sticker-culture {
+  @apply -top-3 right-5 rotate-4 bg-[#a78bfa] text-white px-4 py-1.5 rounded-full text-[11px];
+}
+.sticker-job {
+  @apply bottom-5 -right-3 -rotate-6 bg-[#fb7185] text-white px-4 py-1.5 rounded-full text-[11px];
+}
+
+.map-pattern {
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+}

@@ -1,0 +1,28 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  hoverColorClass: string; // 例: "hover:bg-black!" or "hover:bg-[#D62976]!"
+  className?: string;
+}
+
+const { href, label, hoverColorClass, className } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    "bento-card p-8 flex flex-col items-center justify-center text-center group bg-white transition-all duration-300 cursor-pointer",
+    hoverColorClass,
+    className
+  ]}
+>
+  <div class="mb-4 text-gray-900 group-hover:text-white transition-colors duration-300">
+    <slot name="icon" />
+  </div>
+  <span class="font-bold text-xl font-heading text-gray-900 group-hover:text-white transition-colors duration-300">
+    {label}
+  </span>
+</a>

@@ -1,0 +1,247 @@
+---
+// src/pages/contact.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact | AVENGERZ">
+  <main class="pt-32 pb-32">
+    <section class="max-w-4xl mx-auto px-6 mb-16 text-center reveal active">
+
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-gray-100 shadow-sm mb-6 backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+        <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase font-heading">
+          Get In Touch
+        </span>
+      </div>
+
+      <h1
+        class="text-4xl md:text-6xl font-black text-gray-900 mb-6 font-heading tracking-tight"
+      >
+        CONTACT
+      </h1>
+      <p
+        class="text-gray-500 text-sm md:text-base max-w-xl mx-auto leading-loose"
+      >
+        ご相談、ご質問など、お気軽にお問い合わせください。<br />
+        通常、3営業日以内に担当者よりご連絡いたします。
+      </p>
+    </section>
+
+    <section class="max-w-3xl mx-auto px-6 reveal">
+      <div class="bento-card p-8 md:p-10">
+        <div class="mb-8 border-b border-gray-100 pb-4">
+          <h2 class="text-xl font-bold text-gray-900">
+            お問い合わせフォーム
+          </h2>
+        </div>
+
+        <form id="contact-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="form-label" for="name"
+                >Name <span class="text-red-400">*</span></label
+              >
+              <input type="text" id="name" name="name" class="form-input" placeholder="山田 太郎" required />
+            </div>
+            <div>
+              <label class="form-label" for="company">Company</label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                class="form-input"
+                placeholder="株式会社〇〇"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" for="email"
+              >Email <span class="text-red-400">*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-input"
+              placeholder="name@company.com"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="form-label" for="inquiry_type">Inquiry Type</label>
+            <div class="relative">
+              <select id="inquiry_type" name="inquiry_type" class="form-input appearance-none cursor-pointer">
+                <option value="バックオフィス支援について">バックオフィス支援について</option>
+                <option value="クラウドツール導入について">クラウドツール導入について</option>
+                <option value="採用について">採用について</option>
+                <option value="その他">その他</option>
+              </select>
+              <div
+                class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" for="message"
+              >Message <span class="text-red-400">*</span></label
+            >
+            <textarea
+              id="message"
+              name="message"
+              class="form-input h-40 resize-none"
+              placeholder="お問い合わせ内容をご記入ください"
+              required
+            ></textarea>
+          </div>
+
+          <div class="pt-2">
+            <label class="flex items-start gap-3 cursor-pointer group">
+              <input type="checkbox" id="privacy" class="custom-checkbox mt-0.5" required />
+              <span class="text-xs text-gray-500 leading-relaxed">
+                <a
+                  href="#"
+                  class="text-blue-600 hover:text-blue-800 underline transition-colors"
+                  >個人情報の取扱いに関する同意書</a
+                >を読み、同意しました。
+              </span>
+            </label>
+          </div>
+
+          <div class="pt-2">
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full md:w-auto px-10 py-4 bg-gray-900 text-white font-bold rounded-xl hover:bg-black hover:shadow-lg transition-all text-sm font-heading tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              SEND MESSAGE
+            </button>
+          </div>
+
+          <div id="form-status" class="hidden p-4 rounded-xl text-sm font-bold text-center"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* ...既存のスタイル... */
+  .form-input {
+    width: 100%;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #111;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+  .form-input:focus {
+    background-color: #ffffff;
+    border-color: #a5b4fc;
+    box-shadow: 0 0 0 4px rgba(165, 180, 252, 0.2);
+  }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "Outfit", sans-serif;
+  }
+  .custom-checkbox {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25em;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .custom-checkbox::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em white;
+    transform-origin: center;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+  .custom-checkbox:checked {
+    background-color: #111;
+    border-color: #111;
+  }
+  .custom-checkbox:checked::before {
+    transform: scale(1);
+  }
+</style>
+
+<script>
+  // ...既存のスクリプト...
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const statusMsg = document.getElementById("form-status") as HTMLDivElement;
+
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "SENDING...";
+      statusMsg.classList.add("hidden");
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          form.reset();
+          statusMsg.textContent = "お問い合わせを受け付けました。ありがとうございます。";
+          statusMsg.className = "p-4 rounded-xl text-sm font-bold text-center bg-green-50 text-green-600 border border-green-100 block mt-4";
+        } else {
+          throw new Error("Failed");
+        }
+      } catch (error) {
+        statusMsg.textContent = "送信に失敗しました。時間をおいて再度お試しください。";
+        statusMsg.className = "p-4 rounded-xl text-sm font-bold text-center bg-red-50 text-red-600 border border-red-100 block mt-4";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "SEND MESSAGE";
+      }
+    });
+  }
+</script>

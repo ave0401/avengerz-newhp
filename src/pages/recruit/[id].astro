@@ -1,0 +1,291 @@
+---
+// src/pages/recruit/[id].astro
+import Layout from '../../layouts/Layout.astro';
+
+// 1. 動的ルートの生成とデータ定義
+export function getStaticPaths() {
+  const jobs = [
+    {
+      id: 'miyazaki-full',
+      title: '経理事務・バックオフィス',
+      type: 'Full-time', // 正社員
+      location: 'Miyazaki',
+      salary: '月給 190,000円 ～ 280,000円',
+      tags: ['未経験OK', 'フレックス制', '土日祝休み', '女性活躍中'],
+      description: `
+        <p>私たちは、公認会計士や税理士事務所からの依頼を受け、主にクラウド会計ソフト「マネーフォワード」や「Freee」を活用した経理代行を行っている会社です。<br>ツールを使って、効率的かつ正確な経理処理を行い、お客様の事業運営をサポートします。</p>
+        <p>経理代行業務は当社のコアビジネスですが、スキルや興味に応じて、システム開発、輸出サポート、SNS運用といった幅広い業務にも挑戦するチャンスがあります。</p>
+        <h4>バックオフィスサポート事業</h4>
+        <p>当社では、スタートアップや中小企業の経営者を対象に、バックオフィス業務の全面的なサポートを行っています。経理業務だけでなく、総務業務も含まれクライアントのビジネスが円滑に運営される支援しています。<br>さらに、クラウドサービスの導入支援も行っており、最新のテクノロジーを活用した業務効率化を実現しています。</p>
+      `,
+      requirements: [
+        '既卒・第二新卒歓迎',
+        '未経験OK',
+        '税理士事務所/会計事務所/企業経理での勤務経験ある方歓迎',
+        '日商簿記2級をお持ちの方歓迎'
+      ],
+      conditions: {
+        location: '宮崎県都城市立野町7-4-101（最寄駅：都城駅）\n※転勤なし / テレワーク・在宅OK',
+        hours: 'フレックスタイム制（標準労働時間：1日8時間）\n※コアタイムなしのフルフレックス',
+        holidays: '完全週休2日制（土日祝）\n年間休日120日以上\n年末年始休暇、慶弔休暇、有休消化率80%以上',
+        welfare: '雇用保険、厚生年金、健康保険、交通費支給あり、服装自由'
+      }
+    },
+    {
+      id: 'okinawa-full',
+      title: '経理事務・バックオフィス',
+      type: 'Full-time', // 正社員
+      location: 'Okinawa',
+      salary: '月給 180,000円 ～ 250,000円',
+      tags: ['未経験OK', 'フレックス制', '土日祝休み', '転勤なし'],
+      description: `
+        <p>未経験OK！立ち上げメンバー募集！！<br>私たちは、公認会計士や税理士事務所からの依頼を受け、主にクラウド会計ソフトを活用した経理代行を行っている会社です。</p>
+        <p>経理代行業務に加え、システム開発、輸出サポートなど、幅広い業務に挑戦するチャンスがあります。沖縄本社で、スタートアップのスピード感を肌で感じながら成長できる環境です。</p>
+        <h4>主な業務内容</h4>
+        <p>・クラウド会計ソフト（マネーフォワード/Freee）を使用した記帳代行<br>・クライアントのバックオフィス支援（総務・労務など）<br>・クラウドツール導入支援<br>・（希望に応じて）SNS運用、システム開発補助</p>
+      `,
+      requirements: [
+        '既卒・第二新卒歓迎',
+        '未経験OK',
+        '税理士事務所/会計事務所/企業経理での勤務経験ある方歓迎',
+        '日商簿記2級をお持ちの方歓迎'
+      ],
+      conditions: {
+        location: '沖縄県那覇市（最寄駅：美栄橋駅）\n※転勤なし / テレワーク・在宅OK',
+        hours: '08:30 ～ 17:30\n実働時間：8時間/日',
+        holidays: '完全週休2日制（土日祝）\n年間休日120日以上\n年末年始休暇、慶弔休暇、有休消化率80%以上',
+        welfare: '雇用保険、厚生年金、健康保険、交通費支給あり'
+      }
+    },
+    {
+      id: 'miyazaki-part',
+      title: '経理事務アシスタント',
+      type: 'Part-time', // パート
+      location: 'Miyazaki',
+      salary: '時給 1,050円 ～ 1,300円',
+      tags: ['週2~3日からOK', '16時退社OK', '扶養内OK', '社員登用あり'],
+      description: `
+        <p>立ち上げメンバー募集中！！ ☆女性活躍中☆<br>公認会計士や税理士事務所からの依頼を受けた経理代行業務のアシスタントをお願いします。</p>
+        <p>子育て中の方や、扶養内での勤務を希望される方も大歓迎。フレックスタイム制を活用し、家庭と仕事の両立がしやすい環境です。</p>
+      `,
+      requirements: [
+        '学歴不問 / 未経験OK',
+        '既卒・第二新卒歓迎',
+        '税理士事務所/会計事務所/企業経理での勤務経験ある方歓迎',
+        '日商簿記2級をお持ちの方歓迎'
+      ],
+      conditions: {
+        location: '宮崎県都城市立野町7-4-101（最寄駅：都城駅）\n※転勤なし',
+        hours: 'フレックスタイム制（標準労働時間：1日6時間）\n※残業なし / 16時前退社OK',
+        holidays: '完全週休2日制（土日祝）\n年間休日120日以上',
+        welfare: '雇用保険、厚生年金、健康保険、交通費支給あり、服装自由'
+      }
+    },
+    {
+      id: 'okinawa-part',
+      title: '経理事務アシスタント',
+      type: 'Part-time', // パート
+      location: 'Okinawa',
+      salary: '時給 980円 ～ 1,200円',
+      tags: ['10時始業OK', '週2~3日からOK', '未経験歓迎', 'ベンチャー'],
+      description: `
+        <p>未経験OK！立ち上げメンバー募集！！<br>クラウド会計ソフトを使用したデータ入力や資料作成など、コンサルタントのサポート業務全般をお任せします。</p>
+        <p>週2～3日から、1日6時間程度から相談可能です。「10時から働きたい」などのご要望もお気軽にご相談ください。</p>
+      `,
+      requirements: [
+        '既卒・第二新卒歓迎',
+        '未経験OK',
+        '税理士事務所/会計事務所/企業経理での勤務経験ある方歓迎',
+        '日商簿記2級をお持ちの方歓迎'
+      ],
+      conditions: {
+        location: '沖縄県那覇市\n※転勤なし / テレワーク・在宅OK',
+        hours: '裁量労働制・シフト制（1日6時間～8時間程度）\n※10時以降の始業OK / 週2～3日からOK',
+        holidays: '完全週休2日制（土日祝）\n年間休日120日以上',
+        welfare: '雇用保険、厚生年金、健康保険、交通費支給あり'
+      }
+    }
+  ];
+
+  return jobs.map((job) => {
+    return {
+      params: { id: job.id },
+      props: { job },
+    };
+  });
+}
+
+const { job } = Astro.props;
+
+// 色の定義 (Cardと統一)
+const typeColor = job.type === "Full-time" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-purple-50 text-purple-700 border-purple-200";
+const locationColor = job.location === "Miyazaki" ? "bg-orange-50 text-orange-700 border-orange-200" : "bg-teal-50 text-teal-700 border-teal-200";
+---
+
+<Layout title={`${job.title} | Recruit`}>
+  <main class="pt-32 pb-32 bg-gray-50/50">
+
+    <div class="max-w-6xl mx-auto px-6 mb-8">
+      <a href="/recruit" class="inline-flex items-center gap-2 text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors uppercase tracking-widest font-heading group">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:-translate-x-1 transition-transform">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to List
+      </a>
+    </div>
+
+    <section class="max-w-6xl mx-auto px-6 mb-12 reveal active">
+      <div class="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+           <svg width="200" height="200" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+        </div>
+
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class={`px-3 py-1 rounded text-xs font-bold uppercase tracking-wider border ${locationColor}`}>
+              {job.location}
+            </span>
+            <span class={`px-3 py-1 rounded text-xs font-bold uppercase tracking-wider border ${typeColor}`}>
+              {job.type}
+            </span>
+          </div>
+
+          <h1 class="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight font-heading tracking-tight">
+            {job.title}
+          </h1>
+
+          <div class="flex flex-wrap gap-3">
+            {job.tags.map((tag) => (
+              <span class="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full border border-gray-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 reveal">
+
+      <div class="lg:col-span-8 flex flex-col gap-8">
+
+        <div class="bento-card p-8 md:p-10 bg-white">
+          <h2 class="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4 font-heading flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-500"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Job Description
+          </h2>
+          <div class="prose prose-sm md:prose-base prose-gray max-w-none font-medium leading-loose text-gray-600 space-y-6">
+            <div set:html={job.description} />
+          </div>
+        </div>
+
+        <div class="bento-card p-8 md:p-10 bg-white">
+          <h2 class="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4 font-heading flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-green-500"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            Requirements
+          </h2>
+          <ul class="space-y-4">
+            {job.requirements.map((req) => (
+              <li class="flex items-start gap-3 text-gray-700 text-sm md:text-base font-medium">
+                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
+                {req}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bento-card p-8 md:p-10 bg-white">
+           <h2 class="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4 font-heading flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-purple-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Selection Process
+          </h2>
+          <div class="flex flex-col md:flex-row gap-4 items-center justify-between text-center md:text-left">
+             <div class="flex-1">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 01</span>
+                <p class="font-bold text-gray-900 mt-1">書類選考</p>
+             </div>
+             <div class="text-gray-300 rotate-90 md:rotate-0">➔</div>
+             <div class="flex-1">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 02</span>
+                <p class="font-bold text-gray-900 mt-1">一次面接 (Online)</p>
+             </div>
+             <div class="text-gray-300 rotate-90 md:rotate-0">➔</div>
+             <div class="flex-1">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Step 03</span>
+                <p class="font-bold text-gray-900 mt-1">最終面接 (Offline/Online)</p>
+             </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-4">
+        <div class="sticky top-8 flex flex-col gap-6">
+
+          <div class="bento-card bg-white p-6 md:p-8">
+            <h3 class="text-base font-bold text-gray-900 mb-6 font-heading uppercase tracking-wider">
+              Working Conditions
+            </h3>
+
+            <dl class="space-y-6 text-sm">
+              <div>
+                <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Salary</dt>
+                <dd class="font-bold text-gray-900 text-base">{job.salary}</dd>
+                <dd class="text-xs text-gray-500 mt-1">※試用期間あり（条件変更なし/給与同額）</dd>
+              </div>
+
+              <div class="border-t border-gray-100 pt-4">
+                <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Location</dt>
+                <dd class="font-medium text-gray-700 whitespace-pre-line">{job.conditions.location}</dd>
+              </div>
+
+              <div class="border-t border-gray-100 pt-4">
+                <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Hours</dt>
+                <dd class="font-medium text-gray-700 whitespace-pre-line">{job.conditions.hours}</dd>
+              </div>
+
+               <div class="border-t border-gray-100 pt-4">
+                <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Holidays</dt>
+                <dd class="font-medium text-gray-700 whitespace-pre-line">{job.conditions.holidays}</dd>
+              </div>
+
+              <div class="border-t border-gray-100 pt-4">
+                <dt class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Welfare</dt>
+                <dd class="font-medium text-gray-700">{job.conditions.welfare}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="bento-card p-6 md:p-8 bg-gray-900 text-white text-center">
+            <h3 class="text-xl font-bold mb-2 font-heading">Apply Now</h3>
+            <p class="text-gray-400 text-xs mb-6">
+              ご応募・お問い合わせはフォームより受け付けております。
+            </p>
+            <a
+              href="/contact"
+              class="block w-full py-4 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-200 transition-colors text-sm font-heading tracking-wide"
+            >
+              ENTRY FORM
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+</Layout>
+
+<style>
+  /* 簡易的なTypography用スタイル (Tailwind Typographyが無い場合の補完) */
+  .prose h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    color: #111827;
+  }
+  .prose p {
+    margin-bottom: 1em;
+  }
+</style>

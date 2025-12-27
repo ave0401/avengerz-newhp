@@ -1,0 +1,209 @@
+---
+// src/pages/service.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Service | AVENGERZ">
+  <main class="pt-32 pb-32">
+
+    <section class="max-w-4xl mx-auto px-6 mb-32 reveal active text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-gray-100 shadow-sm mb-8 backdrop-blur-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+        <span class="text-[10px] font-bold tracking-widest text-gray-500 uppercase font-heading">
+          Business Model
+        </span>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-12 leading-tight font-heading tracking-tight">
+        お客様ごとに最適なご提案を。
+      </h1>
+
+      <div class="text-gray-600 text-sm md:text-base leading-loose max-w-3xl mx-auto space-y-8 text-center">
+        <p>
+          「経理を丸ごと任せたい」から「入力だけ手伝ってほしい」まで。<br class="hidden md:inline">
+          御社のチームの一員として、必要なサポートを必要な分だけ柔軟にご提供します。
+        </p>
+        <p>
+          まずは現状の課題をヒアリングし、御社だけの最適解をオーダーメイドでご提案。<br class="hidden md:inline">
+          煩雑なバックオフィス業務から解放され、<br class="md:hidden">経営者様が未来をつくる「本業」に熱中できる環境を創ります。
+        </p>
+      </div>
+    </section>
+
+    <div class="w-full h-px bg-gray-200/60 max-w-6xl mx-auto"></div>
+
+    <section class="max-w-6xl mx-auto px-6 mt-24 mb-20 reveal active">
+      <div class="mb-12 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4 font-heading">
+          BACK OFFICE SUPPORT
+        </h2>
+        <p class="text-gray-500 font-bold mb-4 text-sm">
+          バックオフィスサポート
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(280px,auto)]">
+
+        <div class="bento-card p-8 flex flex-col items-center justify-center text-center group h-full">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gray-50 border border-gray-100 text-gray-600 group-hover:bg-blue-50 group-hover:text-[#4E80EE] transition-colors">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+              <rect width="20" height="12" x="2" y="6" rx="2"></rect>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="M6 12h.01M18 12h.01"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900 text-lg mb-4">経理業務</h3>
+            <ul class="text-sm text-gray-500 space-y-2">
+              <li>仕訳入力 / 記帳代行</li>
+              <li>請求書 / 領収書の管理</li>
+              <li>経費精算処理</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bento-card p-8 flex flex-col items-center justify-center text-center group h-full">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gray-50 border border-gray-100 text-gray-600 group-hover:bg-blue-50 group-hover:text-[#4E80EE] transition-colors">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+              <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+              <path d="M9 22v-4h6v4"></path>
+              <path d="M8 6h.01"></path>
+              <path d="M16 6h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M16 10h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M16 14h.01"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900 text-lg mb-4">総務業務</h3>
+            <ul class="text-sm text-gray-500 space-y-2">
+              <li>契約書 / 文書管理</li>
+              <li>備品購入 / 在庫管理</li>
+              <li>労務管理サポート</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bento-card p-8 flex flex-col items-center justify-center text-center group h-full">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gray-50 border border-gray-100 text-gray-600 group-hover:bg-blue-50 group-hover:text-[#4E80EE] transition-colors">
+             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+               <circle cx="9" cy="7" r="4"></circle>
+               <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+             </svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900 text-lg mb-4">人事業務</h3>
+            <ul class="text-sm text-gray-500 space-y-2">
+              <li>採用活動サポート</li>
+              <li>社会保険手続きの補助</li>
+              <li>人事データの管理</li>
+              <li class="opacity-70 text-xs text-[#4E80EE]">※パートナー社労士対応</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bento-card p-8 flex flex-col items-center justify-center text-center group h-full">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gray-50 border border-gray-100 text-gray-600 group-hover:bg-blue-50 group-hover:text-[#4E80EE] transition-colors">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <line x1="10" y1="9" x2="8" y2="9"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-gray-900 text-lg mb-4">その他業務</h3>
+            <ul class="text-sm text-gray-500 space-y-2">
+               <li>各種レポート作成</li>
+               <li>資料作成・ファイリング</li>
+               <li>業務プロセス改善提案</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full h-px bg-gray-200/60 max-w-6xl mx-auto my-20"></div>
+
+    <section class="max-w-5xl mx-auto px-6 mb-24 reveal active">
+      <div class="mb-12 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4 font-heading">
+          FINANCIAL SUPPORT
+        </h2>
+        <p class="text-gray-500 font-bold mb-4 text-sm">
+          財務支援
+        </p>
+      </div>
+
+      <div class="text-center">
+        <div class="max-w-3xl mx-auto flex flex-col items-center">
+
+          <p class="text-gray-600 leading-loose mb-10 text-sm md:text-base text-center">
+            資金計画の立案や財務分析を通じて、経営者が的確な意思決定を行えるよう支援します。<br class="hidden md:block">
+            現状の数字を「見える化」し、経営の安定と成長を後押しするための羅針盤を作ります。
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-3">
+            {[
+              '資金繰り表作成',
+              'キャッシュフロー分析',
+              '財務諸表作成',
+              '銀行融資・補助金申請サポート'
+            ].map((tag) => (
+              <span class="px-5 py-2.5 bg-white rounded-full text-xs font-bold text-gray-600 border border-gray-100 shadow-sm transition-colors cursor-default hover:text-[#4E80EE] hover:border-blue-100">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full h-px bg-gray-200/60 max-w-6xl mx-auto"></div>
+
+    <section class="max-w-5xl mx-auto px-6 text-center reveal my-24 active">
+      <div class="mb-12 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4 font-heading">
+          CLOUD INTEGRATION SUPPORT
+        </h2>
+        <p class="text-gray-500 font-bold mb-4 text-sm">
+          クラウド導入支援
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto text-gray-600 mb-12 space-y-4 leading-loose text-sm md:text-base text-center">
+        <p>
+          ただツールを導入するだけでなく、それを使って「業務をどう変えるか」までをデザインします。<br class="hidden md:inline">
+          経理や勤怠、プロジェクト管理など、あらゆる業務のデジタル化を支援。
+        </p>
+        <p>
+          最適なSaaSの選定から、現場が使いこなすためのトレーニングまで。<br class="hidden md:inline">
+          テクノロジーの力でシンプルで快適なものへとアップデートします。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        {[
+            'MoneyFoward',
+            'Freee',
+            'KING OF TIME',
+            'Notion',
+            'SLACK',
+            'SanSan',
+            'Zendesk',
+            'Google Workspace',
+            'Asana',
+            'Kintone',
+        ].map((name) => (
+             <span
+                class="w-full py-3 bg-white border border-gray-100 rounded-full text-xs font-bold text-gray-600 shadow-sm cursor-default transition whitespace-nowrap hover:text-[#4E80EE] hover:border-[#4E80EE] hover:bg-blue-50/10 flex items-center justify-center"
+            >{name}</span>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

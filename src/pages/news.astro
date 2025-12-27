@@ -1,0 +1,84 @@
+---
+// src/pages/news.astro
+import Layout from "../layouts/Layout.astro";
+import { getNews } from "../lib/microcms";
+
+// MicroCMSからニュース一覧を取得
+const { contents: news } = await getNews({ limit: 20 });
+
+// カテゴリごとの色定義
+const categoryColors: Record<string, string> = {
+  Release: "bg-blue-100 text-blue-700 border-blue-200",
+  Info: "bg-gray-100 text-gray-700 border-gray-200",
+  Blog: "bg-purple-100 text-purple-700 border-purple-200",
+  default: "bg-gray-50 text-gray-600 border-gray-200",
+};
+---
+
+<Layout title="News - AVENGERZ">
+  <div class="pt-32 pb-20 px-6 max-w-4xl mx-auto min-h-screen">
+
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-black text-gray-900 font-heading tracking-tight mb-4">
+        News
+      </h1>
+      <p class="text-gray-500 font-medium">
+        アベンジャーズからの最新情報をお届けします。
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {news.length === 0 ? (
+        <div class="text-center py-20 bg-gray-50 rounded-3xl border border-gray-100">
+          <p class="text-gray-400">記事がまだありません。</p>
+        </div>
+      ) : (
+        news.map((item: any) => {
+          // ★修正ポイント: カテゴリ(category) または タグ(tags配列の1つ目) を探すロジック
+          // MicroCMSで「タグ」を使っている場合、item.tags[0].name などに入っていることが多いです
+          const catName = item.category?.name
+                        || (item.tags && item.tags.length > 0 ? item.tags[0].name : null)
+                        || "Info";
+
+          const catStyle = categoryColors[catName] || categoryColors.default;
+
+          return (
+            <a
+              href={`/news/${item.id}`}
+              class="group block bg-white border border-gray-100 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:border-gray-200 hover:-translate-y-0.5"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="text-sm font-mono text-gray-400">
+                    {new Date(item.publishedAt || item.createdAt).toLocaleDateString("ja-JP", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    }).replace(/\//g, ".")}
+                  </span>
+
+                  {/* カテゴリ名があれば表示 */}
+                  <span class={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${catStyle} uppercase tracking-wide`}>
+                    {catName}
+                  </span>
+                </div>
+
+                <h2 class="text-lg font-bold text-gray-900 group-hover:text-[#4E80EE] transition-colors leading-relaxed">
+                  {item.title}
+                </h2>
+
+                <div class="hidden md:flex ml-auto text-gray-300 group-hover:text-[#4E80EE] transition-colors group-hover:translate-x-1 duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          );
+        })
+      )}
+    </div>
+  </div>
+</Layout>
