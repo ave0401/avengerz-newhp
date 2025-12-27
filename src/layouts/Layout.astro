@@ -5,114 +5,144 @@ import FloatingMenu from '../components/ui/FloatingMenu.astro';
 import LogoContainer from '../components/ui/LogoContainer.astro';
 
 interface Props {
-	title: string;
-	description?: string;
-    isHome?: boolean; // トップページのみスクロール挙動を変えるためのフラグ
+  title: string;
+  description?: string;
+  image?: string; // OGP画像（SNSシェア用）
+  isHome?: boolean;
+  structuredData?: object; // ページ固有の構造化データ(JSON-LD)
 }
 
-const { title, description = "株式会社アベンジャーズは、バックオフィス支援とIT導入で企業のポテンシャルを最大化するプロフェッショナルチームです。", isHome = false } = Astro.props;
+// サイトのベースURLを取得（設定がない場合はハードコード）
+const siteUrl = Astro.site ? Astro.site.href : "https://avengerz-japan.com";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+
+const {
+  title,
+  description = "株式会社アベンジャーズは、バックオフィス支援とIT導入で企業のポテンシャルを最大化するプロフェッショナルチームです。",
+  image = "/ogp.png", // public/ogp.png を用意することを推奨
+  isHome = false,
+  structuredData
+} = Astro.props;
+
+// ベースとなる組織の構造化データ (Schema.org)
+const baseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Corporation",
+  "name": "株式会社アベンジャーズ",
+  "url": siteUrl,
+  "logo": `${siteUrl}favicon.png`,
+  "description": "バックオフィス支援とIT導入で企業のポテンシャルを最大化するプロフェッショナルチーム",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "恩納村谷茶1919-1 OISTインキュベーターセンター",
+    "addressLocality": "国頭郡",
+    "addressRegion": "沖縄県",
+    "postalCode": "904-0495",
+    "addressCountry": "JP"
+  },
+  "sameAs": [
+    "https://x.com/hisashimiyaguni",
+    "https://note.com/miyaguni"
+  ]
+};
 ---
 
 <!doctype html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap"
-          rel="stylesheet"
-        />
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
 
-		<title>{title}</title>
+    <meta property="og:type" content={isHome ? "website" : "article"} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, siteUrl)} />
+    <meta property="og:site_name" content="株式会社アベンジャーズ" />
 
-        <script type="application/ld+json" is:inline>
-          {
-            "@context": "https://schema.org",
-            "@type": "Corporation",
-            "name": "株式会社アベンジャーズ",
-            "url": "https://avengerz-japan.com",
-            "logo": "https://avengerz-japan.com/logo.png",
-            "description": "バックオフィス支援とIT導入で企業のポテンシャルを最大化するプロフェッショナルチーム",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "恩納村谷茶1919-1 OISTインキュベーターセンター",
-                "addressLocality": "国頭郡",
-                "addressRegion": "沖縄県",
-                "postalCode": "904-0495",
-                "addressCountry": "JP"
-            }
-          }
-        </script>
-	</head>
-	<body>
-        <LogoContainer />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, siteUrl)} />
 
-		<slot />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-        <FloatingMenu />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
 
-        <script define:vars={{ isHome }}>
-          document.addEventListener("DOMContentLoaded", () => {
-            // Scroll & Reveal Logic
-            const logoContainer = document.getElementById("logo-container");
-            const floatingMenu = document.getElementById("floating-menu-container");
-            const reveals = document.querySelectorAll(".reveal");
+    <script type="application/ld+json" set:html={JSON.stringify(baseSchema)} is:inline />
 
-            // Reveal Animation Function
-            const revealOnScroll = () => {
-              const windowHeight = window.innerHeight;
-              const elementVisible = 50;
-              reveals.forEach((reveal) => {
-                const rect = reveal.getBoundingClientRect();
-                if (rect.top < windowHeight - elementVisible) {
-                  reveal.classList.add("active");
-                }
-              });
-            };
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+    )}
+  </head>
+  <body>
+    <LogoContainer />
 
-            // Main Scroll Handler
-            window.addEventListener("scroll", () => {
-              const scrollY = window.scrollY;
+    <slot />
 
-              // Top Page Specific Logic for Logo/Menu appearance
-              if (isHome) {
-                 if (scrollY > 150) {
-                    floatingMenu?.classList.add("visible");
-                    logoContainer?.classList.add("visible");
-                  } else {
-                    floatingMenu?.classList.remove("visible");
-                    logoContainer?.classList.remove("visible");
-                    // Close menu logic handles inside FloatingMenu component
-                  }
-              } else {
-                  // Sub pages: Always show (or adjust threshold)
-                  // 今回のデザインでは下層ページもスクロールしてから表示するパターンか、
-                  // 最初から表示するか選択可能です。元のHTML(company.html等)を見ると
-                  // 下層ページにはスクロール判定ロジックがHTML内に書かれていませんが、
-                  // デザイン統一のため、あるいは初期表示のためにここを調整します。
-                  // 元のCSSでは #logo-container は opacity:0 スタートのようなので、
-                  // 下層ページは最初から表示する処理を入れます。
+    <FloatingMenu />
 
-                  floatingMenu?.classList.add("visible");
-                  logoContainer?.classList.add("visible");
-              }
+    <script define:vars={{ isHome }}>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Scroll & Reveal Logic
+        const logoContainer = document.getElementById("logo-container");
+        const floatingMenu = document.getElementById("floating-menu-container");
+        const reveals = document.querySelectorAll(".reveal");
 
-              revealOnScroll();
-            });
-
-            // Initial Check
-            revealOnScroll();
-            if (!isHome) {
-                floatingMenu?.classList.add("visible");
-                logoContainer?.classList.add("visible");
+        // Reveal Animation Function
+        const revealOnScroll = () => {
+          const windowHeight = window.innerHeight;
+          const elementVisible = 50;
+          reveals.forEach((reveal) => {
+            const rect = reveal.getBoundingClientRect();
+            if (rect.top < windowHeight - elementVisible) {
+              reveal.classList.add("active");
             }
           });
-        </script>
-	</body>
+        };
+
+        // Main Scroll Handler
+        window.addEventListener("scroll", () => {
+          const scrollY = window.scrollY;
+
+          if (isHome) {
+              // Top page: Show after scroll
+              if (scrollY > 150) {
+                floatingMenu?.classList.add("visible");
+                logoContainer?.classList.add("visible");
+              } else {
+                floatingMenu?.classList.remove("visible");
+                logoContainer?.classList.remove("visible");
+              }
+          } else {
+              // Sub pages: Always show
+              floatingMenu?.classList.add("visible");
+              logoContainer?.classList.add("visible");
+          }
+
+          revealOnScroll();
+        });
+
+        // Initial Check
+        revealOnScroll();
+        if (!isHome) {
+            floatingMenu?.classList.add("visible");
+            logoContainer?.classList.add("visible");
+        }
+      });
+    </script>
+  </body>
 </html>
